@@ -1,50 +1,36 @@
-<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-    <div>
-        <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg"
-            alt="">
+<h2 class="text-2xl font-semibold mb-6 text-center text-gray-800 dark:text-black">Lista de Productos</h2>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 p-4">
+    @for (producto of productos; track producto.nombre) {
+    <div
+        class="product-card bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 transition hover:shadow-lg border border-gray-200 dark:border-gray-700">
+
+        <!-- Imagen uniforme -->
+        <img [src]="producto.imagen" alt="Imagen del producto" class="w-full h-48 object-cover rounded-md mb-4">
+
+        <!-- Información del producto -->
+        <div class="product-info text-sm text-gray-800 dark:text-gray-200 mb-1">
+            <strong>Nombre:</strong> {{ producto.nombre }}
+        </div>
+        <div class="product-info text-sm text-gray-800 dark:text-gray-200 mb-1">
+            <strong>Precio:</strong> ${{ producto.precio }}
+        </div>
+        <div class="product-info text-sm text-gray-800 dark:text-gray-200 mb-4">
+            <strong>Cantidad:</strong> {{ producto.stock }}
+        </div>
+
+        <!-- Botones -->
+        <div class="flex gap-2">
+            <button [routerLink]="['/editar-producto', producto.id]" type="button"
+                class="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-4 rounded-lg transition duration-200">
+                Editar
+            </button>
+
+            <button (click)="eliminarProducto(producto.id)" type="button"
+                class="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200">
+                Eliminar
+            </button>
+        </div>
     </div>
-    <div>
-        <img class="h-auto max-w-full rounded-lg"
-            src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt="">
-    </div>
-    <div>
-        <img class="h-auto max-w-full rounded-lg"
-            src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg" alt="">
-    </div>
-    <div>
-        <img class="h-auto max-w-full rounded-lg"
-            src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg" alt="">
-    </div>
-    <div>
-        <img class="h-auto max-w-full rounded-lg"
-            src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg" alt="">
-    </div>
-    <div>
-        <img class="h-auto max-w-full rounded-lg"
-            src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg" alt="">
-    </div>
-    <div>
-        <img class="h-auto max-w-full rounded-lg"
-            src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-6.jpg" alt="">
-    </div>
-    <div>
-        <img class="h-auto max-w-full rounded-lg"
-            src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-7.jpg" alt="">
-    </div>
-    <div>
-        <img class="h-auto max-w-full rounded-lg"
-            src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-8.jpg" alt="">
-    </div>
-    <div>
-        <img class="h-auto max-w-full rounded-lg"
-            src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-9.jpg" alt="">
-    </div>
-    <div>
-        <img class="h-auto max-w-full rounded-lg"
-            src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-10.jpg" alt="">
-    </div>
-    <div>
-        <img class="h-auto max-w-full rounded-lg"
-            src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-11.jpg" alt="">
-    </div>
+    }
 </div>
