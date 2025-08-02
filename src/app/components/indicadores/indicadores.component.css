@@ -1,0 +1,23 @@
+/* indicadores.component.css */
+.indicador-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 0 10px #ececec;
+    padding: 20px 10px;
+    width: 170px;
+    text-align: center;
+}
+
+.indicador-img {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 8px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.indicador-valor {
+    color: #e53e3e;
+    font-size: 2rem;
+    font-weight: bold;
+}
