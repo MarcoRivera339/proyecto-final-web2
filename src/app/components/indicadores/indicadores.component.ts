@@ -12,27 +12,27 @@ export class IndicadoresComponent {
 
   indicadores = [
     {
-      img: 'URL_DE_IMAGEN_1', // Usa links de imágenes o assets locales
+      img: 'https://images.pexels.com/photos/9304917/pexels-photo-9304917.jpeg', 
       valor: '24.769',
       texto: 'Colaboradores'
     },
     {
-      img: 'URL_DE_IMAGEN_2',
+      img: 'https://images.pexels.com/photos/9304917/pexels-photo-9304917.jpeg',
       valor: '13.981',
       texto: 'Proveedores'
     },
     {
-      img: 'URL_DE_IMAGEN_3',
-      valor: "3'594.071",
+      img: 'https://images.pexels.com/photos/9304917/pexels-photo-9304917.jpeg',
+      valor: "94.071",
       texto: 'Clientes'
     },
     {
-      img: 'URL_DE_IMAGEN_4',
+      img: 'https://images.pexels.com/photos/9304917/pexels-photo-9304917.jpeg',
       valor: '20.318',
       texto: 'Total accionistas'
     },
     {
-      img: 'URL_DE_IMAGEN_5',
+      img: 'https://images.pexels.com/photos/9304917/pexels-photo-9304917.jpeg',
       valor: '335.473',
       texto: 'Empleos Indirectos'
     }

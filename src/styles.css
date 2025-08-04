@@ -1,1 +1,111 @@
-/* You can add global styles to this file, and also import other style files */
+/* --- Reset general para asegurar layout correcto --- */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background-color: #f3f4f6; /* Gris claro Tailwind: bg-gray-50 */
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  color: #222;
+  display: flex;
+  flex-direction: column;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  flex: 1 0 auto;
+}
+
+/* --- Estilo universal para listas y links --- */
+ul {
+  padding-left: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+a:hover {
+  color: #059669; /* Verde Tailwind: emerald-600 */
+  text-decoration: underline;
+}
+
+/* --- Scrollbar minimalista y bonito --- */
+::-webkit-scrollbar {
+  width: 8px;
+  background: #e5e7eb;
+}
+::-webkit-scrollbar-thumb {
+  background: #059669;
+  border-radius: 8px;
+}
+
+/* --- Ajustes para los cards --- */
+.card {
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.04);
+  border-radius: 12px;
+  background: #fff;
+  padding: 1.5rem;
+}
+
+/* --- Navbar y footer suaves --- */
+nav, .navbar, app-navbar {
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
+  background: #fff;
+  z-index: 10;
+}
+
+footer, app-footer {
+  /* NO usar margin-top, margin-bottom aquí */
+  box-shadow: 0 -2px 8px 0 rgba(0,0,0,0.06);
+}
+
+/* --- Responsive para que nada desborde --- */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* --- Mejoras en inputs y botones globales --- */
+input, button, select, textarea {
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+/* --- Mejoras visuales para formularios --- */
+input[type="text"], input[type="email"], input[type="search"], input[type="password"], textarea {
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  padding: 0.5rem 1rem;
+  outline: none;
+  transition: border 0.2s;
+}
+input:focus, textarea:focus {
+  border-color: #059669;
+}
+
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+}

@@ -1,20 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { ProductosService } from '../../services/productos.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { Producto } from '../../interfaces/producto';
-import { SearchComponent } from "../search/search.component";
-
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-galery',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, CommonModule, FormsModule],
   templateUrl: './galery.component.html',
   styleUrl: './galery.component.css'
 })
 export class GaleryComponent {
 
   productos: any[] = [];
-  id:string='';
+  id: string = '';
+  productosFiltrados: any[] = [];
+  filtroNombre: string = '';
 
 
   constructor(private servicioProductos: ProductosService, private router: Router,
@@ -26,6 +27,7 @@ export class GaleryComponent {
       this.productos = Object.keys(data).map(key => ({
         id: key, ...data[key]
       }));
+      this.productosFiltrados = [...this.productos];
     });
   }
 
@@ -35,6 +37,13 @@ export class GaleryComponent {
     }, error => {
       console.log('no se puede eliminar el producto', error)
     })
+  }
+
+  filtrarProductos() {
+    const filtro = this.filtroNombre.toLowerCase();
+    this.productosFiltrados = this.productos.filter(producto =>
+      producto.nombre.toLowerCase().includes(filtro)
+    );
   }
 
 }
