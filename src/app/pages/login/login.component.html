@@ -1,0 +1,13 @@
+<div class="max-w-sm mx-auto mt-10 p-4 border rounded-lg shadow">
+  <h2 class="text-xl font-semibold mb-4">Iniciar Sesión</h2>
+
+  <label class="block mb-2 text-sm">Correo electrónico</label>
+  <input [(ngModel)]="email" type="email" class="w-full border px-3 py-2 rounded mb-4" placeholder="ejemplo@correo.com">
+
+  <label class="block mb-2 text-sm">Contraseña</label>
+  <input [(ngModel)]="password" type="password" class="w-full border px-3 py-2 rounded mb-6" placeholder="••••••••">
+
+  <button (click)="iniciarSesion()" class="w-full bg-blue-600 text-white py-2 rounded hover:opacity-90">
+    Entrar
+  </button>
+</div>

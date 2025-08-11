@@ -1,0 +1,29 @@
+<div class="max-w-xl mx-auto p-4 border rounded-lg shadow">
+  <h3 class="text-xl font-semibold mb-3">Factura previa</h3>
+
+  <div *ngIf="cart.getItems().length === 0" class="text-gray-500">
+    No hay productos en el carrito.
+  </div>
+
+  <ul *ngIf="cart.getItems().length > 0" class="space-y-2 mb-3">
+    <li *ngFor="let it of cart.getItems()" class="flex justify-between">
+      <span>{{ it.nombre }} × {{ it.cantidad }}</span>
+      <span>\${{ (it.precio * it.cantidad) | number:'1.2-2' }}</span>
+    </li>
+  </ul>
+
+  <div class="border-t pt-2 space-y-1" *ngIf="cart.getItems().length > 0">
+    <div class="flex justify-between">
+      <span>Subtotal</span>
+      <strong>\${{ cart.getSubtotal() | number:'1.2-2' }}</strong>
+    </div>
+    <div class="flex justify-between">
+      <span>IVA ({{ (tasaIVA * 100) | number:'1.0-0' }}%)</span>
+      <strong>\${{ cart.getIVA(tasaIVA) | number:'1.2-2' }}</strong>
+    </div>
+    <div class="flex justify-between text-lg">
+      <span>Total</span>
+      <strong>\${{ cart.getTotal(tasaIVA) | number:'1.2-2' }}</strong>
+    </div>
+  </div>
+</div>
