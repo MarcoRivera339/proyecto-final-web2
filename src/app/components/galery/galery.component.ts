@@ -1,29 +1,36 @@
-import { Component, NgModule } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ProductosService } from '../../services/productos.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-galery',
   standalone: true,
   imports: [RouterLink, CommonModule, FormsModule],
   templateUrl: './galery.component.html',
-  styleUrl: './galery.component.css'
+  styleUrls: ['./galery.component.css']
 })
 export class GaleryComponent {
-
   productos: any[] = [];
   id: string = '';
   productosFiltrados: any[] = [];
   filtroNombre: string = '';
+  @Output() add = new EventEmitter<any>();
 
-
-  constructor(private servicioProductos: ProductosService, private router: Router,
-    private ruta: ActivatedRoute) {
-  }
+  constructor(
+    private servicioProductos: ProductosService,
+    private router: Router,
+    private ruta: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     this.servicioProductos.getProductos().subscribe(data => {
+      if (!data) {
+        this.productos = [];
+        this.productosFiltrados = [];
+        return;
+      }
       this.productos = Object.keys(data).map(key => ({
         id: key, ...data[key]
       }));
@@ -33,17 +40,19 @@ export class GaleryComponent {
 
   eliminarProducto(id: string): void {
     this.servicioProductos.deleteProducto(id).subscribe(() => {
-      this.productos = this.productos.filter(producto => producto.id !== id)
-    }, error => {
-      console.log('no se puede eliminar el producto', error)
-    })
+      this.productos = this.productos.filter(producto => producto.id !== id);
+      this.filtrarProductos();
+    }, () => {});
   }
 
   filtrarProductos() {
     const filtro = this.filtroNombre.toLowerCase();
     this.productosFiltrados = this.productos.filter(producto =>
-      producto.nombre.toLowerCase().includes(filtro)
+      (producto?.nombre || '').toLowerCase().includes(filtro)
     );
   }
 
+  onAdd(producto: any) {
+    this.add.emit(producto);
+  }
 }

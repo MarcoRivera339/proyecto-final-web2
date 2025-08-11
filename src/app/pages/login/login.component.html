@@ -1,13 +1,42 @@
-<div class="max-w-sm mx-auto mt-10 p-4 border rounded-lg shadow">
-  <h2 class="text-xl font-semibold mb-4">Iniciar Sesión</h2>
+<div class="max-w-md mx-auto bg-white rounded-xl shadow p-6 mt-10">
+  <h1 class="text-2xl font-bold mb-4">Iniciar sesión</h1>
 
-  <label class="block mb-2 text-sm">Correo electrónico</label>
-  <input [(ngModel)]="email" type="email" class="w-full border px-3 py-2 rounded mb-4" placeholder="ejemplo@correo.com">
+  <form #f="ngForm" (ngSubmit)="iniciarSesion()" class="space-y-4">
+    <div>
+      <label class="block text-sm mb-1">Email</label>
+      <input
+        [(ngModel)]="email"
+        name="email"
+        type="email"
+        required
+        class="w-full border rounded-lg p-3"
+        placeholder="tucorreo@ejemplo.com"
+      />
+    </div>
 
-  <label class="block mb-2 text-sm">Contraseña</label>
-  <input [(ngModel)]="password" type="password" class="w-full border px-3 py-2 rounded mb-6" placeholder="••••••••">
+    <div>
+      <label class="block text-sm mb-1">Contraseña</label>
+      <input
+        [(ngModel)]="password"
+        name="password"
+        type="password"
+        required
+        minlength="4"
+        class="w-full border rounded-lg p-3"
+        placeholder="••••••••"
+      />
+    </div>
 
-  <button (click)="iniciarSesion()" class="w-full bg-blue-600 text-white py-2 rounded hover:opacity-90">
-    Entrar
-  </button>
+    <button
+      type="submit"
+      class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded-lg"
+    >
+      Ingresar
+    </button>
+  </form>
+
+  <p class="text-sm text-gray-600 mt-3">
+    ¿No tienes cuenta?
+    <a routerLink="/registro" class="text-green-700 underline">Registrarme</a>
+  </p>
 </div>

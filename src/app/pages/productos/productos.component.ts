@@ -9,7 +9,7 @@ import { FacturaPreviaComponent } from "../../components/factura-previa/factura-
 @Component({
   selector: 'app-productos',
   standalone: true,
-  imports: [CommonModule, GaleryComponent,FacturaPreviaComponent],
+  imports: [CommonModule, GaleryComponent, FacturaPreviaComponent],
   templateUrl: './productos.component.html',
   styleUrl: './productos.component.css'
 })

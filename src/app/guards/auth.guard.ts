@@ -1,14 +1,16 @@
 import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
+import { CanActivateFn, CanMatchFn, Router, UrlTree } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 export const authGuard: CanActivateFn = () => {
   const auth = inject(AuthService);
   const router = inject(Router);
 
-  if (auth.isLoggedIn()) return true;
+  return auth.isLoggedIn() ? true : router.createUrlTree(['/login']);
+};
+export const authMatch: CanMatchFn = () => {
+  const auth = inject(AuthService);
+  const router = inject(Router);
 
-  alert('Debes iniciar sesión para acceder.');
-  router.navigateByUrl('/');
-  return false;
+  return auth.isLoggedIn() ? true : (router.createUrlTree(['/login']) as UrlTree);
 };

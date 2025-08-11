@@ -18,11 +18,14 @@ export class LoginComponent {
   constructor(private auth: AuthService, private router: Router) {}
 
   iniciarSesion() {
-    // Aquí podrías validar usuario/contraseña real si tuvieras backend
+    // Valida que haya email y contraseña (sin backend)
     if (this.email && this.password) {
+      // Respetando tu servicio (sin cambiar firmas)
       this.auth.login();
+
       alert('Sesión iniciada');
-      this.router.navigateByUrl('/'); // Redirige al home o donde quieras
+      // Requisito: tras login, mostrar productos protegidos
+      this.router.navigateByUrl('/productos');
     } else {
       alert('Ingrese su correo y contraseña');
     }

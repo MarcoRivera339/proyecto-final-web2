@@ -3,49 +3,53 @@ import { CartItem } from '../interfaces/cart-item';
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
-  private key = 'mr_cart';
+  private readonly key = 'mr_cart';
   private items: CartItem[] = this.leer();
 
   private leer(): CartItem[] {
     const raw = localStorage.getItem(this.key);
-    return raw ? JSON.parse(raw) : [];
+    try {
+      return raw ? (JSON.parse(raw) as CartItem[]) : [];
+    } catch {
+      return [];
+    }
   }
 
-  private guardar() {
+  private guardar(): void {
     localStorage.setItem(this.key, JSON.stringify(this.items));
   }
 
   getItems(): CartItem[] {
-    return [...this.items];
+    return this.items.map(i => ({ ...i }));
   }
 
   getCount(): number {
     return this.items.reduce((acc, it) => acc + it.cantidad, 0);
   }
 
-  add(item: CartItem) {
+  add(item: CartItem): void {
     const i = this.items.findIndex(x => x.id === item.id);
     if (i >= 0) {
       this.items[i].cantidad += item.cantidad;
     } else {
-      this.items.push(item);
+      this.items.push({ ...item });
     }
     this.guardar();
   }
 
-  remove(id: string) {
+  remove(id: string): void {
     this.items = this.items.filter(x => x.id !== id);
     this.guardar();
   }
 
-  clear() {
+  clear(): void {
     this.items = [];
     this.guardar();
   }
 
-  // Cálculos de factura
   getSubtotal(): number {
-    return this.items.reduce((acc, x) => acc + x.precio * x.cantidad, 0);
+    const subtotal = this.items.reduce((acc, x) => acc + Number(x.precio) * Number(x.cantidad), 0);
+    return +subtotal.toFixed(2);
   }
 
   getIVA(tasa = 0.12): number {

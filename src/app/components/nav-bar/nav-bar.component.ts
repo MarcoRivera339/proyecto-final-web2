@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -11,10 +11,14 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent {
-  constructor(public auth: AuthService) {}
+  constructor(public auth: AuthService, private router: Router) {}
+
+  get loggedIn() {
+    return this.auth.isLoggedIn();
+  }
 
   logout() {
     this.auth.logout();
-    alert('Sesión cerrada');
+    this.router.navigateByUrl('/login');
   }
 }

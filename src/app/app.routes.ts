@@ -7,12 +7,12 @@ import { RegistroComponent } from './pages/registro/registro.component';
 import { FormProductosComponent } from './components/form-productos/form-productos.component';
 import { FormClientesComponent } from './components/form-clientes/form-clientes.component';
 import { EditarProductoComponent } from './components/editar-producto/editar-producto.component';
-import { LoginComponent } from './pages/login/login.component'; // si ya lo creaste
-import { authGuard } from './guards/auth.guard';
+import { LoginComponent } from './pages/login/login.component';
+import { authGuard, authMatch } from './guards/auth.guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'productos', component: ProductosComponent },
+  { path: 'productos', component: ProductosComponent, canMatch: [authMatch] },
   { path: 'nosotros', component: NosotrosComponent },
   { path: 'contacto', component: ContactoComponent },
   { path: 'registro', component: RegistroComponent },
@@ -20,4 +20,5 @@ export const routes: Routes = [
   { path: 'crear-producto', component: FormProductosComponent, canActivate: [authGuard] },
   { path: 'crear-cliente', component: FormClientesComponent, canActivate: [authGuard] },
   { path: 'editar-producto/:id', component: EditarProductoComponent, canActivate: [authGuard] },
+  { path: '**', redirectTo: '' }
 ];
