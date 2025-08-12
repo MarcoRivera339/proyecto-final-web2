@@ -1,0 +1,6 @@
+.beneficios{max-width:1000px;margin:16px auto;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media (max-width:900px){.beneficios{grid-template-columns:1fr}}
+.item{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px;text-align:center;box-shadow:0 2px 12px var(--shadow)}
+.ico{font-size:24px;margin-bottom:6px}
+h4{margin:0 0 6px}
+p{margin:0;opacity:.9}

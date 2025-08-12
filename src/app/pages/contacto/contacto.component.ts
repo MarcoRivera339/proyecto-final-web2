@@ -1,14 +1,21 @@
 import { Component } from '@angular/core';
-import { CartaContactoComponent } from '../../components/carta-contacto/carta-contacto.component';
-import { NOVEDADESComponent } from "../../components/novedades/novedades.component";
+import { CommonModule } from '@angular/common';
+import { EncabezadoContactoComponent } from '../../components/encabezado-contacto/encabezado-contacto.component';
+import { FormularioContactoComponent } from '../../components/formulario-contacto/formulario-contacto.component';
+import { DatosContactoComponent } from '../../components/datos-contacto/datos-contacto.component';
+import { MapaContactoComponent } from '../../components/mapa-contacto/mapa-contacto.component';
 
 @Component({
   selector: 'app-contacto',
   standalone: true,
-  imports: [CartaContactoComponent, NOVEDADESComponent],
+  imports: [
+    CommonModule,
+    EncabezadoContactoComponent,
+    FormularioContactoComponent,
+    DatosContactoComponent,
+    MapaContactoComponent
+  ],
   templateUrl: './contacto.component.html',
-  styleUrl: './contacto.component.css'
+  styleUrls: ['./contacto.component.css']
 })
-export class ContactoComponent {
-
-}
+export class ContactoComponent {}

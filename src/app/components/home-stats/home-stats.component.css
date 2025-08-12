@@ -1,0 +1,7 @@
+.stats{max-width:1200px;margin:12px auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:900px){.stats{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.stats{grid-template-columns:1fr}}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px;text-align:center;box-shadow:0 2px 12px var(--shadow)}
+.stat__icon{font-size:22px}
+.stat__num{font-size:22px;font-weight:800;color:var(--text)}
+.stat__label{font-size:13px;opacity:.8}

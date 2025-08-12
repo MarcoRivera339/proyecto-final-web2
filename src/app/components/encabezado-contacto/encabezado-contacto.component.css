@@ -1,0 +1,8 @@
+.enc{position:relative;overflow:hidden;border-radius:16px;margin:16px auto;max-width:1200px;background:linear-gradient(135deg,var(--surface),var(--bg))}
+.enc__bg{position:absolute;inset:0;background:
+  radial-gradient(700px 260px at 15% 20%, rgba(16,185,129,.25), transparent 60%),
+  radial-gradient(600px 220px at 85% 15%, rgba(16,185,129,.18), transparent 60%)}
+.enc__inner{position:relative;padding:56px 20px;text-align:center;color:var(--text)}
+.enc__pill{display:inline-block;margin-bottom:10px;padding:6px 12px;border:1px solid var(--border);border-radius:999px;background:var(--surface);font-size:12px;opacity:.9}
+.enc h1{margin:0 0 8px;font-size:clamp(28px,4vw,44px);line-height:1.1}
+.enc p{margin:0 auto;max-width:720px;opacity:.88}

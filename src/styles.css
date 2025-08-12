@@ -1,111 +1,94 @@
-/* --- Reset general para asegurar layout correcto --- */
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
+/* ================= THEME ================= */
+:root{
+  --bg: #f3f4f6;          /* claro */
+  --text: #222222;
+  --surface: #ffffff;
+  --border: #e5e7eb;
+  --brand: #059669;       /* emerald-600 */
+  --muted: #6b7280;
+  --shadow: rgba(0,0,0,0.04);
+  --shadow-strong: rgba(0,0,0,0.06);
+  --scrollbar-bg: #e5e7eb;
+  --scrollbar-thumb: #059669;
 }
 
-body {
-  min-height: 100vh;
-  background-color: #f3f4f6; /* Gris claro Tailwind: bg-gray-50 */
+.dark{
+  --bg: #0f172a;          /* slate-900 */
+  --text: #e5e7eb;
+  --surface: #1f2937;     /* gray-800 */
+  --border: #334155;      /* slate-700 */
+  --brand: #10b981;       /* emerald-500 */
+  --muted: #cbd5e1;       /* slate-300 */
+  --shadow: rgba(0,0,0,0.35);
+  --shadow-strong: rgba(0,0,0,0.45);
+  --scrollbar-bg: #1f2937;
+  --scrollbar-thumb: #10b981;
+}
+
+/* ============== Reset/Layout ============== */
+html, body { height:100%; margin:0; padding:0; }
+body{
+  min-height:100vh;
+  background-color: var(--bg);
+  color: var(--text);
   font-family: 'Inter', Arial, Helvetica, sans-serif;
-  color: #222;
-  display: flex;
-  flex-direction: column;
+  display:flex; flex-direction:column;
 }
+app-root{ display:flex; flex-direction:column; min-height:100vh; flex:1 0 auto; }
 
-app-root {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  flex: 1 0 auto;
+/* ============== Lists & Links ============= */
+ul{ padding-left:0; list-style:none; }
+a{
+  color: inherit; text-decoration:none; transition: color .2s, opacity .2s;
 }
+a:hover{ color: var(--brand); text-decoration: underline; }
 
-/* --- Estilo universal para listas y links --- */
-ul {
-  padding-left: 0;
-  list-style: none;
-}
+/* ============== Scrollbar ================= */
+::-webkit-scrollbar{ width:8px; background: var(--scrollbar-bg); }
+::-webkit-scrollbar-thumb{ background: var(--scrollbar-thumb); border-radius:8px; }
 
-a {
-  color: inherit;
-  text-decoration: none;
-  transition: color 0.2s;
-}
-a:hover {
-  color: #059669; /* Verde Tailwind: emerald-600 */
-  text-decoration: underline;
-}
-
-/* --- Scrollbar minimalista y bonito --- */
-::-webkit-scrollbar {
-  width: 8px;
-  background: #e5e7eb;
-}
-::-webkit-scrollbar-thumb {
-  background: #059669;
-  border-radius: 8px;
-}
-
-/* --- Ajustes para los cards --- */
-.card {
-  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.04);
+/* ============== Cards ===================== */
+.card{
+  box-shadow: 0 2px 12px 0 var(--shadow);
+  border:1px solid var(--border);
   border-radius: 12px;
-  background: #fff;
+  background: var(--surface);
   padding: 1.5rem;
 }
 
-/* --- Navbar y footer suaves --- */
-nav, .navbar, app-navbar {
-  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
-  background: #fff;
-  z-index: 10;
+/* ============== Navbar / Footer =========== */
+nav, .navbar, app-navbar{
+  box-shadow: 0 2px 8px 0 var(--shadow);
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  z-index:10;
+}
+footer, app-footer{
+  box-shadow: 0 -2px 8px 0 var(--shadow-strong);
+  background: var(--surface);
+  border-top: 1px solid var(--border);
 }
 
-footer, app-footer {
-  /* NO usar margin-top, margin-bottom aquí */
-  box-shadow: 0 -2px 8px 0 rgba(0,0,0,0.06);
-}
+/* ============== Media ===================== */
+img{ max-width:100%; height:auto; display:block; }
 
-/* --- Responsive para que nada desborde --- */
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
+/* ============== Forms/Buttons ============= */
+input, button, select, textarea{ font-family: inherit; }
+button{ cursor:pointer; transition: background .2s, color .2s, box-shadow .2s, opacity .2s; }
 
-/* --- Mejoras en inputs y botones globales --- */
-input, button, select, textarea {
-  font-family: inherit;
+input[type="text"], input[type="email"], input[type="search"], input[type="password"], input[type="number"], textarea{
+  border-radius:8px;
+  border:1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  padding: .5rem 1rem;
+  outline:none; transition: border .2s, background .2s, color .2s;
 }
+input:focus, textarea:focus{ border-color: var(--brand); }
 
-button {
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+/* ============== Animations ================ */
+@keyframes fade-in-up{
+  0%{ opacity:0; transform: translateY(40px) scale(.95); }
+  100%{ opacity:1; transform: translateY(0) scale(1); }
 }
-
-/* --- Mejoras visuales para formularios --- */
-input[type="text"], input[type="email"], input[type="search"], input[type="password"], textarea {
-  border-radius: 8px;
-  border: 1px solid #e5e7eb;
-  padding: 0.5rem 1rem;
-  outline: none;
-  transition: border 0.2s;
-}
-input:focus, textarea:focus {
-  border-color: #059669;
-}
-
-@keyframes fade-in-up {
-  0% {
-    opacity: 0;
-    transform: translateY(40px) scale(0.95);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-.animate-fade-in-up {
-  animation: fade-in-up 0.8s cubic-bezier(0.39, 0.575, 0.565, 1) both;
-}
+.animate-fade-in-up{ animation: fade-in-up .8s cubic-bezier(.39,.575,.565,1) both; }

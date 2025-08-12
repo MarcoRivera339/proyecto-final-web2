@@ -1,0 +1,12 @@
+<section class="equipo">
+  <h2>Conoce al equipo</h2>
+  <div class="grid">
+    <article class="card persona" *ngFor="let m of equipo">
+      <img [src]="m.foto" [alt]="m.nombre">
+      <div class="info">
+        <h4>{{ m.nombre }}</h4>
+        <span>{{ m.rol }}</span>
+      </div>
+    </article>
+  </div>
+</section>

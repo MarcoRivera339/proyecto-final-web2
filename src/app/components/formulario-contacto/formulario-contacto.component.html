@@ -1,0 +1,30 @@
+<form (ngSubmit)="enviar()" #f="ngForm" class="card form">
+  <h2 class="title">Escríbenos</h2>
+
+  <div class="row">
+    <label>Nombre</label>
+    <input [(ngModel)]="nombre" name="nombre" type="text" placeholder="Tu nombre" />
+  </div>
+
+  <div class="row">
+    <label>Email *</label>
+    <input [(ngModel)]="email" name="email" type="email" required placeholder="tucorreo@dominio.com" />
+  </div>
+
+  <div class="row">
+    <label>Asunto</label>
+    <input [(ngModel)]="asunto" name="asunto" type="text" placeholder="Motivo del mensaje" />
+  </div>
+
+  <div class="row">
+    <label>Mensaje *</label>
+    <textarea [(ngModel)]="mensaje" name="mensaje" required rows="5" placeholder="Escribe tu mensaje..."></textarea>
+  </div>
+
+  <button class="btn" type="submit" [disabled]="loading || f.invalid">
+    {{ loading ? 'Enviando...' : 'Enviar mensaje' }}
+  </button>
+
+  <p *ngIf="ok" class="ok">{{ ok }}</p>
+  <p *ngIf="error" class="err">{{ error }}</p>
+</form>

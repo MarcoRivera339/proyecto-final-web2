@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { ProductosService } from '../../services/productos.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-galery',
@@ -16,43 +17,53 @@ export class GaleryComponent {
   id: string = '';
   productosFiltrados: any[] = [];
   filtroNombre: string = '';
-  @Output() add = new EventEmitter<any>();
 
   constructor(
     private servicioProductos: ProductosService,
+    private cart: CartService,
     private router: Router,
     private ruta: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.servicioProductos.getProductos().subscribe(data => {
-      if (!data) {
+    this.servicioProductos.getProductos().subscribe((data: any) => {
+      if (Array.isArray(data)) {
+        this.productos = data;
+      } else if (data && typeof data === 'object') {
+        const obj = data as Record<string, any>;
+        this.productos = Object.entries(obj).map(([key, value]) => ({
+          id: key,
+          ...(value as any)
+        }));
+      } else {
         this.productos = [];
-        this.productosFiltrados = [];
-        return;
       }
-      this.productos = Object.keys(data).map(key => ({
-        id: key, ...data[key]
-      }));
       this.productosFiltrados = [...this.productos];
     });
   }
 
-  eliminarProducto(id: string): void {
+  eliminarProducto(id: string | number): void {
     this.servicioProductos.deleteProducto(id).subscribe(() => {
-      this.productos = this.productos.filter(producto => producto.id !== id);
+      this.productos = this.productos.filter(p => String(p.id) !== String(id));
       this.filtrarProductos();
-    }, () => {});
+    });
   }
 
   filtrarProductos() {
-    const filtro = this.filtroNombre.toLowerCase();
-    this.productosFiltrados = this.productos.filter(producto =>
-      (producto?.nombre || '').toLowerCase().includes(filtro)
+    const filtro = (this.filtroNombre || '').toLowerCase();
+    this.productosFiltrados = this.productos.filter(p =>
+      (p?.nombre || '').toLowerCase().includes(filtro)
     );
   }
 
-  onAdd(producto: any) {
-    this.add.emit(producto);
+  addCart(producto: any) {
+    this.cart.add({
+      id: producto.id || producto.nombre,
+      nombre: producto.nombre,
+      precio: Number(producto.precio),
+      cantidad: 1,
+      imagen: producto.imagen
+    });
+    alert('Producto agregado al carrito');
   }
 }

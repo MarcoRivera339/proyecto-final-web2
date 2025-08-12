@@ -1,71 +1,15 @@
-<form (ngSubmit)="guardarCliente(formulario)" #formulario="ngForm" class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-md dark:bg-gray-800 dark:text-white my-12">
-    <h2 class="text-2xl font-semibold mb-6 text-gray-800 dark:text-white">Agregar Cliente</h2>
-
-    <!-- Cedula del cliente -->
-    <div class="mb-4">
-        <label [(ngModel)]="cedula" for="cedula" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cedula</label>
-        <input type="text" id="cedula" name="cedula" class="block w-full p-3 text-gray-900 border border-black rounded-lg bg-white text-sm 
-      placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500 
-      dark:bg-white dark:border-black dark:placeholder-gray-400 dark:text-black" placeholder="Ej: 1723456789" required>
-    </div>
-
-    <!-- Nombre del cliente -->
-    <div class="mb-4">
-        <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
-        <input [(ngModel)]="nombre" type="text" id="nombre" name="nombre" class="block w-full p-3 text-gray-900 border border-black rounded-lg bg-white text-sm 
-      placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500 
-      dark:bg-white dark:border-black dark:placeholder-gray-400 dark:text-black" placeholder="Ej: Marco" required>
-    </div>
-
-    <!-- Apellido del cliente -->
-    <div class="mb-4">
-        <label for="apellido" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellido</label>
-        <input [(ngModel)]="apellido" type="text" id="apellido" name="apellido" class="block w-full p-3 text-gray-900 border border-black rounded-lg bg-white text-sm 
-      placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500 
-      dark:bg-white dark:border-black dark:placeholder-gray-400 dark:text-black" placeholder="Ej: Rivera" required>
-    </div>
-
-    <!-- Edad del cliente -->
-    <div class="mb-4">
-        <label for="edad" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Edad</label>
-        <input [(ngModel)]="edad" type="number" id="edad" name="edad" class="block w-full p-3 text-gray-900 border border-black rounded-lg bg-white text-sm 
-      placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500 
-      dark:bg-white dark:border-black dark:placeholder-gray-400 dark:text-black" placeholder="Ej: 30" required>
-    </div>
-
-    <!-- Direccion -->
-  <div class="mb-4">
-    <label for="direccion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Direccion</label>
-    <textarea [(ngModel)]="direccion" id="direccion" name="direccion" rows="3"
-      class="block w-full p-3 text-gray-900 border border-black rounded-lg bg-white text-sm 
-      placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500 
-      dark:bg-white dark:border-black dark:placeholder-gray-400 dark:text-black"
-      placeholder="Ej: Av. 5 de Junio ...." required></textarea>
+<form (ngSubmit)="guardarCliente()" #f="ngForm" class="space-y-4">
+  <div>
+    <label>Email</label>
+    <input [(ngModel)]="email" name="email" type="email" required class="w-full border rounded-lg p-3" />
   </div>
-
-    <!-- URL de la imagen -->
-    <div class="mb-6">
-        <label for="imagen" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">URL de la
-            Foto</label>
-        <input [(ngModel)]="imagen" type="url" id="imagen" name="imagen" class="block w-full p-3 text-gray-900 border border-black rounded-lg bg-white text-sm 
-    placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500 
-    dark:bg-white dark:border-black dark:placeholder-gray-400 dark:text-black"
-            placeholder="Ej: https://ejemplo.com/imagen.jpg" required>
-    </div>
-
-
-    <!-- Botones -->
-    <div class="flex flex-col sm:flex-row justify-between gap-4">
-        <button type="submit" class="w-full sm:w-1/2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 
-      font-medium rounded-lg text-sm px-5 py-3 text-center dark:bg-blue-600 
-      dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            Registrarse
-        </button>
-
-        <a routerLink="/" class="w-full sm:w-1/2 text-white bg-gray-600 hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 
-  font-medium rounded-lg text-sm px-5 py-3 text-center dark:bg-gray-500 
-  dark:hover:bg-gray-600 dark:focus:ring-gray-700">
-            Regresar
-        </a>
-    </div>
+  <div>
+    <label>Contraseña</label>
+    <input [(ngModel)]="password" name="password" type="password" required minlength="4" class="w-full border rounded-lg p-3" />
+  </div>
+  <button type="submit" [disabled]="loading" class="w-full bg-green-600 text-white py-2 rounded-lg">
+    {{ loading ? 'Guardando...' : 'Registrar' }}
+  </button>
+  <p *ngIf="error" class="text-red-600 text-sm mt-2">{{ error }}</p>
+  <p *ngIf="ok" class="text-green-600 text-sm mt-2">{{ ok }}</p>
 </form>

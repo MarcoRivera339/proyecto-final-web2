@@ -15,13 +15,15 @@ export class FacturaPreviaComponent {
 
   constructor(public cart: CartService, private facturas: FacturasService) {}
 
-  generarFactura() {
+  async generarFactura() {
     const items = this.cart.getItems();
     if (!items.length) return;
+
     const subtotal = this.cart.getSubtotal();
     const iva = this.cart.getIVA(this.tasaIVA);
     const total = this.cart.getTotal(this.tasaIVA);
-    const factura = this.facturas.crear(items, subtotal, iva, total);
+
+    const factura = await this.facturas.crear(items, subtotal, iva, total);
     this.cart.clear();
     alert('Factura generada: ' + factura.id);
   }

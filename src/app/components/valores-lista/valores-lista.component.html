@@ -1,0 +1,10 @@
+<section class="valores">
+  <h2>Nuestros valores</h2>
+  <div class="grid">
+    <article class="val" *ngFor="let v of valores">
+      <div class="val__icon">{{ v.icon }}</div>
+      <h4>{{ v.titulo }}</h4>
+      <p>{{ v.desc }}</p>
+    </article>
+  </div>
+</section>

@@ -1,30 +1,51 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { ProductosService } from '../../services/productos.service';
 
 @Component({
   selector: 'app-form-productos',
   standalone: true,
-  imports: [FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule],
   templateUrl: './form-productos.component.html',
-  styleUrl: './form-productos.component.css'
+  styleUrls: ['./form-productos.component.css']
 })
 export class FormProductosComponent {
+  nombre = '';
+  descripcion = '';
+  precio: any = '';
+  stock: any = '';
+  imagen = '';
 
-  constructor(private servicioProductos: ProductosService) { }
+  loading = false;
+  error = '';
 
-  nombre: string = '';
-  descripcion: string = '';
-  precio: number = 0;
-  stock: string = '';
-  imagen: string = '';
+  constructor(private productos: ProductosService, private router: Router) {}
 
-  guardarProducto(formulario: any) {
-    this.servicioProductos.postProductos(formulario.value).subscribe(() => {
-      window.location.reload();
-    })
-
+  guardar() {
+    this.error = '';
+    const p = {
+      nombre: this.nombre,
+      descripcion: this.descripcion,
+      precio: Number(this.precio),
+      stock: Number(this.stock),
+      imagen: this.imagen
+    };
+    if (!p.nombre || isNaN(p.precio) || isNaN(p.stock)) {
+      this.error = 'Completa nombre, precio y stock válidos';
+      return;
+    }
+    this.loading = true;
+    this.productos.createProducto(p).subscribe({
+      next: () => {
+        alert('Producto creado');
+        this.router.navigateByUrl('/productos');
+      },
+      error: () => {
+        this.error = 'No se pudo guardar';
+        this.loading = false;
+      }
+    });
   }
-
 }

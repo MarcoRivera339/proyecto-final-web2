@@ -1,5 +1,5 @@
 <div class="relative text-center mt-10 mb-16">
-  <!-- Fondo imagen semitransparente decorativa -->
+ 
   <div class="absolute inset-0 -z-10 opacity-20 bg-cover bg-center rounded-xl"
        style="background-image: url('https://cdn.pixabay.com/photo/2017/05/02/03/41/action-2277292_1280.jpg');"></div>
 
@@ -10,15 +10,13 @@
     <div class="h-1 w-20 bg-gradient-to-r from-green-400 via-orange-400 to-green-600 rounded-full"></div>
   </div>
 
-  <!-- Grid de métricas estilo dashboard -->
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 px-4 md:px-12">
     <div *ngFor="let ind of indicadores"
          class="flex flex-col items-center bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-2xl border border-green-300 w-52 min-h-[200px] hover:-translate-y-1 hover:scale-105 hover:shadow-orange-300 transition-all duration-300">
-      <!-- Valor animado y grande -->
+  
       <span class="text-4xl md:text-5xl text-orange-500 font-black drop-shadow-sm mb-2 animate-pulse">{{ ind.valor }}</span>
-      <!-- Título / Texto -->
       <span class="font-semibold mt-1 text-green-800 text-lg mb-2">{{ ind.texto }}</span>
-      <!-- Icono o imagen centrado -->
+  
       <img [src]="ind.img "
            alt="indicador"
            class="w-16 h-16 rounded-full object-cover border-2 border-orange-400 shadow-md" />

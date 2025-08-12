@@ -1,0 +1,5 @@
+.mv{max-width:1200px;margin:14px auto;display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media (max-width:900px){.mv{grid-template-columns:1fr}}
+.mv__card{background:var(--surface);border:1px solid var(--border)}
+.mv__card h3{margin:.25rem 0 .5rem 0}
+.mv__card p{margin:0;opacity:.9}

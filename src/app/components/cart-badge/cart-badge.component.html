@@ -1,0 +1,13 @@
+<a routerLink="/productos" class="relative inline-flex items-center justify-center">
+  <svg viewBox="0 0 24 24" class="w-6 h-6 text-green-700 dark:text-green-200">
+    <path fill="currentColor"
+      d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2m10 0c-1.1
+         0-1.99.9-1.99 2S15.9 22 17 22s2-.9 2-2-.9-2-2-2M7.16 14h9.45c.75 0
+         1.41-.41 1.75-1.03l3.58-6.49a1 1 0 0 0-.87-1.48H6.21L5.27 2H2v2h2l3.6
+         7.59-1.35 2.44C5.52 14.37 6.2 15 7 15h12v-2H7.42l.74-1.34Z"/>
+  </svg>
+  <span *ngIf="count>0"
+        class="absolute -top-2 -right-2 min-w-[1.25rem] h-5 px-1 text-xs rounded-full bg-red-600 text-white flex items-center justify-center shadow">
+    {{ count }}
+  </span>
+</a>

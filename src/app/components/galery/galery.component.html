@@ -1,65 +1,97 @@
-<h2 class="text-2xl font-semibold mb-6 text-center text-gray-800 dark:text-black">Lista de Productos</h2>
+<h2 class="text-2xl font-semibold mb-4 text-center text-gray-800 dark:text-white">
+  Lista de Productos
+</h2>
 
-<form class="max-w-4xl mx-auto ">
+<form class="max-w-5xl mx-auto mb-4">
   <div class="flex items-center gap-4">
     <div class="relative flex-1">
       <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+        <svg class="w-4 h-4 text-gray-500 dark:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
         </svg>
       </div>
       <input [(ngModel)]="filtroNombre" name="filtroNombre" (ngModelChange)="filtrarProductos()" type="search" id="filtroNombre"
-             class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 
-                    focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
-                    dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-             placeholder="Buscar producto por nombre" required />
+             class="block w-full p-3 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50
+                    focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                    dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+             placeholder="Buscar producto por nombre" />
     </div>
+
+    <span class="hidden sm:inline-flex items-center px-3 py-2 text-xs font-medium rounded-lg bg-green-100 text-green-700 dark:bg-green-800/40 dark:text-green-200">
+      {{ productosFiltrados.length }} resultado(s)
+    </span>
+
+    <button routerLink="/crear-producto" type="button"
+            class="h-10 px-4 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 focus:outline-none
+                   focus:ring-4 focus:ring-green-300 dark:bg-green-500 dark:hover:bg-green-600 dark:focus:ring-green-700">
+      Crear Producto
+    </button>
   </div>
 </form>
 
-<button routerLink="/crear-producto" type="button"
-        class="h-12 px-4 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 focus:outline-none 
-               focus:ring-4 focus:ring-green-300 dark:bg-green-500 dark:hover:bg-green-600 dark:focus:ring-green-700">
-  Crear Producto
-</button>
-
-<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 p-4">
-  @for (producto of productosFiltrados; track producto.id) {
-    <div class="product-card bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 transition hover:shadow-lg border border-gray-200 dark:border-gray-700">
-      <img [src]="producto.imagen" alt="Imagen del producto" class="w-full h-48 object-cover rounded-md mb-4">
-
-      <div class="product-info text-sm text-gray-800 dark:text-gray-200 mb-1">
-        <strong>Nombre:</strong> {{ producto.nombre }}
-      </div>
-      <div class="product-info text-sm text-gray-800 dark:text-gray-200 mb-1">
-        <strong>Descripcion:</strong> {{ producto.descripcion }}
-      </div>
-      <div class="product-info text-sm text-gray-800 dark:text-gray-200 mb-1">
-        <strong>Precio:</strong> {{ producto.precio | currency:'USD':'symbol':'1.2-2' }}
-      </div>
-      <div class="product-info text-sm text-gray-800 dark:text-gray-200 mb-4">
-        <strong>Cantidad:</strong> {{ producto.stock }}
-      </div>
-
-      <div class="flex gap-2">
-        <button [routerLink]="['/editar-producto', producto.id]" type="button"
-                class="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-4 rounded-lg transition duration-200">
-          Editar
-        </button>
-
-        <button (click)="eliminarProducto(producto.id)" type="button"
-                class="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200">
-          Eliminar
-        </button>
-      </div>
-
-      <button (click)="onAdd(producto)" type="button"
-              [disabled]="!producto.stock || producto.stock <= 0"
-              class="w-full mt-2 bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200 disabled:opacity-60">
-        Agregar al carrito
+@if (productosFiltrados.length === 0) {
+  <div class="max-w-3xl mx-auto my-10 text-center border border-dashed border-gray-300 dark:border-gray-700 rounded-2xl p-8">
+    <div class="mx-auto w-12 h-12 mb-3 rounded-full bg-green-100 text-green-700 flex items-center justify-center dark:bg-green-800/40 dark:text-green-200">
+      <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79L20 21.5 21.5 20l-6-6ZM9.5 14A4.5 4.5 0 1 1 14 9.5 4.505 4.505 0 0 1 9.5 14Z"/>
+      </svg>
+    </div>
+    <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Sin resultados</h3>
+    <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">No encontramos productos que coincidan con “{{filtroNombre}}”.</p>
+    <div class="mt-4">
+      <button routerLink="/crear-producto" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+        Crear un nuevo producto
       </button>
+    </div>
+  </div>
+}
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-6 p-4">
+  @for (producto of productosFiltrados; track producto.id) {
+    <div class="group relative bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden transition">
+      <div class="thumb mb-4">
+        <img [src]="producto.imagen" [alt]="producto.nombre" loading="lazy" class="thumb__img">
+        <span class="absolute top-3 right-3 px-2 py-1 text-xs font-semibold rounded-lg bg-green-600 text-white shadow">
+          {{ producto.precio | currency:'USD':'symbol':'1.2-2' }}
+        </span>
+        <span class="absolute top-3 left-3 px-2 py-1 text-[11px] font-medium rounded-lg"
+              [class.bg-red-100]="!producto.stock || producto.stock <= 0"
+              [class.text-red-700]="!producto.stock || producto.stock <= 0"
+              [class.bg-yellow-100]="producto.stock > 0 && producto.stock <= 5"
+              [class.text-yellow-800]="producto.stock > 0 && producto.stock <= 5"
+              [class.bg-green-100]="producto.stock > 5"
+              [class.text-green-800]="producto.stock > 5">
+          Stock: {{ producto.stock || 0 }}
+        </span>
+      </div>
+
+      <div class="p-4 pt-0">
+        <h3 class="text-base font-semibold text-gray-900 dark:text-gray-100 line-clamp-2">
+          {{ producto.nombre }}
+        </h3>
+        <p class="mt-1 text-sm text-gray-600 dark:text-gray-300 line-clamp-2">
+          {{ producto.descripcion }}
+        </p>
+
+        <div class="mt-4 grid grid-cols-2 gap-2">
+          <button [routerLink]="['/editar-producto', producto.id]" type="button"
+                  class="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-3 rounded-lg transition">
+            Editar
+          </button>
+          <button (click)="eliminarProducto(producto.id)" type="button"
+                  class="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-3 rounded-lg transition">
+            Eliminar
+          </button>
+        </div>
+
+        <button (click)="addCart(producto)" type="button"
+                [disabled]="!producto.stock || producto.stock <= 0"
+                class="mt-2 w-full bg-green-600 hover:bg-green-700 disabled:opacity-60 disabled:cursor-not-allowed
+                       text-white font-medium py-2 px-3 rounded-lg transition">
+          Agregar al carrito
+        </button>
+      </div>
     </div>
   }
 </div>

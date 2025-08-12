@@ -1,0 +1,12 @@
+<section class="timeline">
+  <h2>Nuestra historia</h2>
+  <ol class="line">
+    <li class="hit" *ngFor="let e of eventos">
+      <div class="hit__dot"></div>
+      <div class="hit__box card">
+        <strong>{{ e['año'] }}</strong>
+        <p>{{ e.texto }}</p>
+      </div>
+    </li>
+  </ol>
+</section>

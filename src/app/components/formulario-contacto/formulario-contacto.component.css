@@ -1,0 +1,9 @@
+.form{max-width:720px;margin:0 auto;background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:0 2px 12px var(--shadow)}
+.title{margin:0 0 10px}
+.row{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+label{font-size:13px;opacity:.9}
+input,textarea{background:var(--surface);color:var(--text)}
+.btn{margin-top:6px;display:inline-flex;align-items:center;justify-content:center;padding:10px 16px;border-radius:10px;background:var(--brand);color:#fff;border:none}
+.btn:disabled{opacity:.6;cursor:not-allowed}
+.ok{color:#16a34a;margin-top:8px}
+.err{color:#dc2626;margin-top:8px}

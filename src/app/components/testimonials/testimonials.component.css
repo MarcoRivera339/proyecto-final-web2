@@ -1,0 +1,43 @@
+/* ===== Testimonios (verde, bonito, con CSS) ===== */
+.tstm{max-width:1100px;margin:2rem auto;padding:0 12px}
+.tstm__head{text-align:center;margin-bottom:1.25rem}
+.tstm__head h2{margin:0 0 .25rem;font-weight:800;letter-spacing:-.02em;
+  color:#059669;font-size:clamp(1.75rem,2.8vw,2.25rem)}
+.tstm__head p{margin:0;color:#065f46;opacity:.85}
+
+/* grid */
+.tstm__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:900px){.tstm__grid{grid-template-columns:1fr}}
+/* card */
+.tcard{position:relative;background:#fff;border:1px solid #d1fae5;border-radius:16px;
+  padding:18px;box-shadow:0 6px 18px rgba(5,150,105,.08);
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease}
+.tcard:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(5,150,105,.18);border-color:#a7f3d0}
+
+/* quote deco */
+.tcard__quote{position:absolute;top:-12px;left:-12px;width:42px;height:42px;border-radius:12px;
+  display:grid;place-items:center;background:#d1fae5;color:#059669}
+
+/* persona */
+.tcard__person{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.tcard__avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;
+  background:#a7f3d0;color:#064e3b;font-weight:700}
+.tcard__meta strong{color:#064e3b}
+
+/* estrellas */
+.tcard__stars{display:flex;gap:2px;color:#10b981}
+.tcard__stars svg{width:16px;height:16px;fill:currentColor}
+.tcard__star--muted{opacity:.5}
+
+/* texto */
+.tcard__text{margin:4px 0 0;color:#065f46;line-height:1.55}
+
+/* dark mode */
+.dark .tstm__head h2{color:#34d399}
+.dark .tstm__head p{color:#a7f3d0}
+.dark .tcard{background:#0f1e18;border-color:#134e4a;box-shadow:0 8px 20px rgba(16,185,129,.12)}
+.dark .tcard:hover{box-shadow:0 14px 30px rgba(16,185,129,.25)}
+.dark .tcard__quote{background:#0b3b32;color:#34d399}
+.dark .tcard__avatar{background:#0b3b32;color:#a7f3d0}
+.dark .tcard__meta strong{color:#e6fff5}
+.dark .tcard__text{color:#c7ffea}

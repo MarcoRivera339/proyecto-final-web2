@@ -1,38 +1,5 @@
-<div class="max-w-md mx-auto bg-white rounded-xl shadow p-6 mt-10">
-  <h1 class="text-2xl font-bold mb-4">Registro</h1>
-
-  <form #f="ngForm" (ngSubmit)="registrar()" class="space-y-4">
-    <div>
-      <label class="block text-sm mb-1">Nombre</label>
-      <input [(ngModel)]="nombre" name="nombre" type="text"
-             class="w-full border rounded-lg p-3" placeholder="Tu nombre" />
-    </div>
-
-    <div>
-      <label class="block text-sm mb-1">Email</label>
-      <input [(ngModel)]="email" name="email" type="email" required
-             class="w-full border rounded-lg p-3" placeholder="tucorreo@ejemplo.com" />
-    </div>
-
-    <div>
-      <label class="block text-sm mb-1">Contraseña</label>
-      <input [(ngModel)]="password" name="password" type="password" required minlength="4"
-             class="w-full border rounded-lg p-3" placeholder="••••••••" />
-    </div>
-
-    <button [disabled]="loading"
-            class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded-lg">
-      {{ loading ? 'Registrando...' : 'Registrarme' }}
-    </button>
-
-    <p *ngIf="error" class="text-red-600 text-sm mt-2">{{ error }}</p>
-    <p *ngIf="ok" class="text-green-600 text-sm mt-2">{{ ok }}</p>
-
-    <p class="text-sm text-gray-600 mt-3">
-      ¿Ya tienes cuenta?
-      <a routerLink="/login" class="text-green-700 underline">Iniciar sesión</a>
-    </p>
-  </form>
+<app-encabezado-registro></app-encabezado-registro>
+<div class="contenedor">
+  <app-form-clientes></app-form-clientes>
 </div>
-
-<app-form-clientes></app-form-clientes>
+<app-beneficios-registro></app-beneficios-registro>

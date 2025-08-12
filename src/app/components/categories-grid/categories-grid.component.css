@@ -1,0 +1,31 @@
+
+.cat-item{
+  border-color:#d1fae5;                
+  box-shadow:0 6px 18px rgba(5,150,105,.06);
+}
+.cat-item:hover{
+  border-color:#a7f3d0;                
+  box-shadow:0 12px 28px rgba(5,150,105,.16);
+}
+
+
+.cat-swatch{
+  outline:2px solid rgba(5,150,105,.15); 
+  outline-offset:0;
+  border:1px solid rgba(16,185,129,.25); 
+  border-radius:12px;
+}
+
+
+.dark .cat-item{
+  border-color:#134e4a;                
+  box-shadow:0 8px 20px rgba(16,185,129,.10);
+}
+.dark .cat-item:hover{
+  border-color:#065f46;               
+  box-shadow:0 14px 30px rgba(16,185,129,.20);
+}
+.dark .cat-swatch{
+  outline-color:rgba(110,231,183,.18); 
+  border-color:rgba(52,211,153,.25);   
+}

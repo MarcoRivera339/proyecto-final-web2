@@ -1,0 +1,7 @@
+.hero{position:relative;overflow:hidden;border-radius:16px;margin:16px auto;max-width:1200px;background:linear-gradient(135deg,var(--surface),var(--bg))}
+.hero__bg{position:absolute;inset:0;background:
+  radial-gradient(600px 200px at 10% 20%, rgba(16,185,129,.25), transparent 60%),
+  radial-gradient(600px 200px at 90% 10%, rgba(16,185,129,.18), transparent 60%)}
+.hero__content{position:relative;padding:44px 24px;text-align:center;color:var(--text)}
+.hero__content h1{font-size:clamp(26px,4vw,40px);line-height:1.1;margin:0 0 10px}
+.hero__content p{opacity:.85;margin:0 auto;max-width:720px}

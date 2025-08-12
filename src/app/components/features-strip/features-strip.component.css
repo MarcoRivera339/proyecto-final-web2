@@ -1,0 +1,6 @@
+.features{max-width:1200px;margin:20px auto;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:900px){.features{grid-template-columns:1fr}}
+.feat{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px;box-shadow:0 2px 12px var(--shadow);text-align:center}
+.feat__icon{font-size:28px;margin-bottom:8px}
+.feat h3{margin:0 0 6px}
+.feat p{margin:0;opacity:.85}

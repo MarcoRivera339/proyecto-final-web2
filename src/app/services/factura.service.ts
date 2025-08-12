@@ -1,36 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Factura } from '../interfaces/factura';
-import { CartItem } from '../interfaces/cart-item';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class FacturasService {
-  private readonly key = 'mr_invoices';
+  private API = 'http://localhost:3000/facturas';
 
-  private leer(): Factura[] {
-    const raw = localStorage.getItem(this.key);
-    try { return raw ? (JSON.parse(raw) as Factura[]) : []; } catch { return []; }
+  constructor(private http: HttpClient) {}
+
+  async crear(items: any[], subtotal: number, iva: number, total: number) {
+    const payload = { fecha: new Date().toISOString(), items, subtotal, iva, total };
+
+    const res = await firstValueFrom(this.http.post<any>(this.API, payload));
+    return res; 
   }
 
-  private guardar(list: Factura[]): void {
-    localStorage.setItem(this.key, JSON.stringify(list));
-  }
-
-  getAll(): Factura[] {
-    return this.leer();
-  }
-
-  crear(items: CartItem[], subtotal: number, iva: number, total: number): Factura {
-    const factura: Factura = {
-      id: Date.now().toString(),
-      fecha: new Date().toISOString(),
-      items: items.map(i => ({ ...i })),
-      subtotal,
-      iva,
-      total
-    };
-    const list = this.leer();
-    list.push(factura);
-    this.guardar(list);
-    return factura;
+  getAll() {
+    return this.http.get<any[]>(this.API);
   }
 }

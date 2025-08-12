@@ -1,0 +1,6 @@
+.tarjetas{max-width:1000px;margin:14px auto;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media (max-width:900px){.tarjetas{grid-template-columns:1fr}}
+.item{text-align:center;border:1px solid var(--border);border-radius:16px;background:var(--surface);box-shadow:0 2px 12px var(--shadow)}
+.ico{font-size:24px;margin-bottom:6px}
+h4{margin:0 0 6px}
+p{margin:0;opacity:.9}

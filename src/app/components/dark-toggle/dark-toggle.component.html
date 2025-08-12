@@ -1,0 +1,6 @@
+<button (click)="toggle()"
+  class="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-green-200 text-green-700 hover:bg-green-50
+         dark:text-green-100 dark:border-green-700 dark:hover:bg-green-800">
+  <span *ngIf="!enabled">🌞 Claro</span>
+  <span *ngIf="enabled">🌙 Oscuro</span>
+</button>
