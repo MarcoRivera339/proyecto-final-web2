@@ -10,7 +10,7 @@ export class UsuariosService {
   private API_USUARIOS = 'http://localhost:8081/usuarios';
   
     constructor(private http: HttpClient) { }
-  
+
     // Guardar usuario
     postUsuario(usuario: any): Observable<any> {
       return this.http.post(`${this.API_USUARIOS}/guardarUsuario`, usuario);

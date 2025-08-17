@@ -35,8 +35,12 @@
     </div>
     <div>
         <label>Rol</label>
-        <input [(ngModel)]="rol" name="rol" id="rol" type="text" required minlength="4"
-            class="w-full border rounded-lg p-3" />
+        <select [(ngModel)]="rol" name="rol" id="rol" required class="w-full border rounded-lg p-3">
+            <option value="null" disabled selected>Seleccione un rol</option>
+            @for(rol of roles; track rol.nombre){
+            <option [value]="rol.id">{{rol.nombre}}</option>
+            }
+        </select>
     </div>
     <button type="submit" class="w-full bg-green-600 text-white py-2 rounded-lg">Registrarse</button>
 </form>

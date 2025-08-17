@@ -7,7 +7,7 @@ import { RegistroComponent } from './pages/registro/registro.component';
 import { FormProductosComponent } from './components/form-productos/form-productos.component';
 import { EditarProductoComponent } from './components/editar-producto/editar-producto.component';
 import { LoginComponent } from './pages/login/login.component';
-import { FormUsuariosComponent } from './components/form-usuarios/form-usuarios.component';
+import { FormUserComponent } from './components/form-user/form-user.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -17,7 +17,7 @@ export const routes: Routes = [
   { path: 'registro', component: RegistroComponent },
   { path: 'login', component: LoginComponent },
   { path: 'crear-producto', component: FormProductosComponent },
-  { path: 'crear-usuario', component: FormUsuariosComponent },
+  { path: 'crear-usuario', component: FormUserComponent},
   { path: 'editarProducto/:id', component: EditarProductoComponent },
   { path: '**', redirectTo: '' }
 ];
