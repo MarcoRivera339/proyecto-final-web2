@@ -4,42 +4,38 @@ import { Observable, map } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ProductosService {
-  private API = 'http://localhost:3000/productos';
+  
+  private API_PRODUCTOS = 'http://localhost:8081/productos';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  getProductos(): Observable<any[]> {
-    return this.http.get<any[]>(this.API).pipe(map(res => Array.isArray(res) ? res : []));
+  // Guardar producto
+  postProducto(producto: any): Observable<any> {
+    return this.http.post(`${this.API_PRODUCTOS}/guardarProducto`, producto);
   }
 
-  getProducto(id: string | number): Observable<any> {
-    return this.http.get<any>(`${this.API}/${id}`);
+  // Listar todos los productos
+  getProductos(): Observable<any> {
+    return this.http.get(`${this.API_PRODUCTOS}`);
   }
 
-  createProducto(producto: any): Observable<any> {
-    const payload = {
-      nombre: producto?.nombre ?? '',
-      descripcion: producto?.descripcion ?? '',
-      precio: Number(producto?.precio) || 0,
-      stock: Number(producto?.stock) || 0,
-      imagen: producto?.imagen ?? ''
-    };
-    return this.http.post<any>(this.API, payload);
+  // Buscar producto por ID
+  getProductoById(id: string): Observable<any> {
+    return this.http.get(`${this.API_PRODUCTOS}/${id}`);
   }
 
-  updateProducto(id: string | number, producto: any): Observable<any> {
-    const payload = {
-      id,
-      nombre: producto?.nombre ?? '',
-      descripcion: producto?.descripcion ?? '',
-      precio: Number(producto?.precio) || 0,
-      stock: Number(producto?.stock) || 0,
-      imagen: producto?.imagen ?? ''
-    };
-    return this.http.put<any>(`${this.API}/${id}`, payload);
+  // Buscar producto por codigo
+  getProductoByCodigo(codigo: string): Observable<any> {
+    return this.http.get(`${this.API_PRODUCTOS}/codigo/${codigo}`);
   }
 
-  deleteProducto(id: string | number): Observable<void> {
-    return this.http.delete<void>(`${this.API}/${id}`);
+  // Eliminar producto
+  deleteProducto(id: string): Observable<any> {
+    return this.http.delete(`${this.API_PRODUCTOS}/eliminarProducto/${id}`);
+  }
+
+  // Actualizar producto
+  putProducto(id: string, producto: any): Observable<any> {
+    return this.http.put(`${this.API_PRODUCTOS}/editarProducto/${id}`, producto);
   }
 }

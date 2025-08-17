@@ -1,36 +1,20 @@
 <div class="max-w-md mx-auto bg-white rounded-xl shadow p-6 mt-10">
   <h1 class="text-2xl font-bold mb-4">Iniciar sesión</h1>
 
-  <form #f="ngForm" (ngSubmit)="iniciarSesion()" class="space-y-4">
+  <form (ngSubmit)="login()" class="space-y-4">
     <div>
       <label class="block text-sm mb-1">Email</label>
-      <input
-        [(ngModel)]="email"
-        name="email"
-        type="email"
-        required
-        class="w-full border rounded-lg p-3"
-        placeholder="tucorreo@ejemplo.com"
-      />
+      <input [(ngModel)]="email" name="email" type="email" required class="w-full border rounded-lg p-3"
+        placeholder="tucorreo@ejemplo.com" />
     </div>
 
     <div>
       <label class="block text-sm mb-1">Contraseña</label>
-      <input
-        [(ngModel)]="password"
-        name="password"
-        type="password"
-        required
-        minlength="4"
-        class="w-full border rounded-lg p-3"
-        placeholder="••••••••"
-      />
+      <input [(ngModel)]="password" name="password" type="password" required minlength="4"
+        class="w-full border rounded-lg p-3" placeholder="••••••••" />
     </div>
 
-    <button
-      type="submit"
-      class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded-lg"
-    >
+    <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded-lg">
       Ingresar
     </button>
   </form>
@@ -40,3 +24,9 @@
     <a routerLink="/registro" class="text-green-700 underline">Registrarme</a>
   </p>
 </div>
+
+@if(error){
+<div style="color:red;" class="mt-4 text-center font-semibold">
+  {{error}}
+</div>
+}

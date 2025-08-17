@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ProductosService } from '../../services/productos.service';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../../services/cart.service';
@@ -13,20 +13,18 @@ import { CartService } from '../../services/cart.service';
   styleUrls: ['./galery.component.css']
 })
 export class GaleryComponent {
+
   productos: any[] = [];
-  id: string = '';
   productosFiltrados: any[] = [];
   filtroNombre: string = '';
 
-  constructor(
-    private servicioProductos: ProductosService,
-    private cart: CartService,
-    private router: Router,
-    private ruta: ActivatedRoute
-  ) {}
+  constructor(private servicioProductos: ProductosService, private cart: CartService,) { }
 
   ngOnInit() {
-    this.servicioProductos.getProductos().subscribe((data: any) => {
+    this.servicioProductos.getProductos().subscribe((data) => {
+      this.productos = Object.keys(data).map(key => ({
+        id: key, ...data[key]
+      }));
       if (Array.isArray(data)) {
         this.productos = data;
       } else if (data && typeof data === 'object') {
@@ -42,12 +40,24 @@ export class GaleryComponent {
     });
   }
 
-  eliminarProducto(id: string | number): void {
-    this.servicioProductos.deleteProducto(id).subscribe(() => {
-      this.productos = this.productos.filter(p => String(p.id) !== String(id));
-      this.filtrarProductos();
-    });
+  eliminarProducto(id: string): void {
+    const confirmacion = window.confirm('¿Estás seguro de que quieres eliminar este producto?');
+
+    if (confirmacion) {
+      this.servicioProductos.deleteProducto(id).subscribe(
+        () => {
+          // Actualizar la lista local de productos
+          this.productos = this.productos.filter(producto => producto.id !== id);
+          console.log('Producto eliminado correctamente');
+        },
+        error => {
+          console.log('No se puede eliminar el producto', error);
+        }
+      );
+      window.location.reload();
+    }
   }
+
 
   filtrarProductos() {
     const filtro = (this.filtroNombre || '').toLowerCase();

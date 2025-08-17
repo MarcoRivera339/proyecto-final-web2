@@ -12,20 +12,24 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  email = '';
-  password = '';
+  email: string = '';
+  password: string = '';
+  error: string = '';
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private authServicio: AuthService, private router: Router) { }
 
-  iniciarSesion() {
-   
-    if (this.email && this.password) {
-      this.auth.login();
-
-      alert('Sesión iniciada');
-      this.router.navigateByUrl('/productos');
+  login = () => {
+  this.authServicio.login(this.email, this.password).subscribe((sesionExitosa) => {
+    if (sesionExitosa) {
+      const redireccion = localStorage.getItem('redirectUrl') || '/productos';
+      localStorage.removeItem('redirectUrl');
+      this.router.navigateByUrl(redireccion);
     } else {
-      alert('Ingrese su correo y contraseña');
+      this.error = "Usuario o contraseña incorrectos";
     }
-  }
+  }, error => {
+    this.error = "Error al intentar iniciar sesión";
+    console.error(error);
+  });
+}
 }

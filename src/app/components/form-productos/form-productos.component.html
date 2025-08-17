@@ -1,15 +1,21 @@
 <div class="max-w-xl mx-auto bg-white rounded-xl shadow p-6">
   <h2 class="text-2xl font-bold mb-4">Crear producto</h2>
 
-  <form (ngSubmit)="guardar()" class="space-y-4">
+  <form (ngSubmit)="guardar(formulario)" #formulario="ngForm" class="space-y-4">
+
+    <div>
+      <label class="block text-sm mb-1">Codigo</label>
+      <input [(ngModel)]="codigo" name="codigo" type="number" class="w-full border rounded-lg p-3" required />
+    </div>
+
     <div>
       <label class="block text-sm mb-1">Nombre</label>
-      <input [(ngModel)]="nombre" name="nombre" class="w-full border rounded-lg p-3" required />
+      <input [(ngModel)]="nombre" name="nombre" type="text" class="w-full border rounded-lg p-3" required />
     </div>
 
     <div>
       <label class="block text-sm mb-1">Descripción</label>
-      <textarea [(ngModel)]="descripcion" name="descripcion" class="w-full border rounded-lg p-3"></textarea>
+      <textarea [(ngModel)]="descripcion" type="text" name="descripcion" class="w-full border rounded-lg p-3"></textarea>
     </div>
 
     <div>
@@ -24,13 +30,11 @@
 
     <div>
       <label class="block text-sm mb-1">URL de imagen</label>
-      <input [(ngModel)]="imagen" name="imagen" class="w-full border rounded-lg p-3" placeholder="assets/images/mi-foto.jpg" />
+      <input [(ngModel)]="imagen" name="imagen" type="text" class="w-full border rounded-lg p-3" placeholder="assets/images/mi-foto.jpg" />
     </div>
 
-    <button [disabled]="loading" type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded-lg">
-      {{ loading ? 'Guardando...' : 'Guardar' }}
+    <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded-lg">Guardar
     </button>
 
-    <p *ngIf="error" class="text-red-600 text-sm mt-2">{{ error }}</p>
   </form>
 </div>

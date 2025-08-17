@@ -12,59 +12,41 @@ import { ProductosService } from '../../services/productos.service';
   styleUrls: ['./editar-producto.component.css']
 })
 export class EditarProductoComponent {
-  id!: number;
-  nombre = '';
-  descripcion = '';
-  precio: any = '';
-  stock: any = '';
-  imagen = '';
 
-  loading = true;
-  error = '';
+  constructor(private ruta: ActivatedRoute, private productosServicio: ProductosService, private router: Router) { }
 
-  constructor(
-    private route: ActivatedRoute,
-    private productos: ProductosService,
-    private router: Router
-  ) {}
+  id: string = '';
+  producto: any = { codigo: 0, nombre: '', descripcion: '', precio: 0, stock: 0, imagen: '' }
 
-  ngOnInit() {
-    this.id = Number(this.route.snapshot.paramMap.get('id'));
-    this.productos.getProducto(this.id).subscribe({
-      next: (p) => {
-        this.nombre = p?.nombre ?? '';
-        this.descripcion = p?.descripcion ?? '';
-        this.precio = p?.precio ?? '';
-        this.stock = p?.stock ?? '';
-        this.imagen = p?.imagen ?? '';
-        this.loading = false;
+
+  ngOnInit(): void {
+    this.ruta.params.subscribe(params => {
+      this.id = params["id"];
+      this.productosServicio.getProductoById(this.id).subscribe(producto => {
+        this.producto = producto;
+      })
+    })
+  }
+
+editarProducto(formulario: any): void {
+  const confirmacion = window.confirm('¿Está seguro de guardar los cambios?');
+
+  if (confirmacion) {
+    const productoActualizado = { ...formulario.value, id: this.id };
+    this.productosServicio.putProducto(this.id, productoActualizado).subscribe({
+      next: () => {
+        alert('Producto actualizado correctamente.');
+        this.router.navigate(['productos']);
       },
-      error: () => {
-        this.error = 'No se pudo cargar el producto';
-        this.loading = false;
+      error: (err) => {
+        console.error('Error al actualizar producto', err);
+        alert('No se pudo actualizar el producto. Revisa la consola.');
       }
     });
+  } else {
+    alert('Edición cancelada.');
   }
+}
 
-  guardar() {
-    this.error = '';
-    const p = {
-      nombre: this.nombre,
-      descripcion: this.descripcion,
-      precio: Number(this.precio),
-      stock: Number(this.stock),
-      imagen: this.imagen
-    };
-    if (!p.nombre || isNaN(p.precio) || isNaN(p.stock)) {
-      this.error = 'Completa nombre, precio y stock válidos';
-      return;
-    }
-    this.productos.updateProducto(this.id, p).subscribe({
-      next: () => {
-        alert('Producto actualizado');
-        this.router.navigateByUrl('/productos');
-      },
-      error: () => this.error = 'No se pudo guardar'
-    });
-  }
+
 }
