@@ -1,101 +1,54 @@
-<h2 class="text-2xl font-semibold mb-4 text-center text-gray-800 dark:text-white">
-  Lista de Productos
-</h2>
+<div class="max-w-4xl mx-auto my-8 p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-md">
+  <!-- Título -->
+  <h1 class="text-3xl font-bold text-gray-800 dark:text-white text-center mb-6">
+    Lista de Productos
+  </h1>
 
-<form class="max-w-5xl mx-auto mb-4">
-  <div class="flex items-center gap-4">
+  <!-- Formulario de búsqueda -->
+  <form class="flex items-center gap-4">
     <div class="relative flex-1">
+      <!-- Icono de búsqueda -->
       <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-        <svg class="w-4 h-4 text-gray-500 dark:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+        <svg class="w-5 h-5 text-gray-400 dark:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
           fill="none" viewBox="0 0 20 20">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
         </svg>
       </div>
+
+      <!-- Input -->
       <input [(ngModel)]="filtroNombre" name="filtroNombre" (ngModelChange)="filtrarProductos()" type="search"
-        id="filtroNombre" class="block w-full p-3 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50
-                    focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
-                    dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
-        placeholder="Buscar producto por nombre" />
+        id="filtroNombre" 
+        class="block w-full p-3 ps-10 text-sm text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 
+        rounded-lg bg-gray-50 dark:bg-gray-700 placeholder-gray-400 dark:placeholder-gray-400 focus:ring-blue-500 
+        focus:border-blue-500 dark:focus:ring-blue-500 dark:focus:border-blue-500 shadow-sm transition-all duration-200"
+        placeholder="Buscar producto por nombre"
+        required />
     </div>
-
-    <span
-      class="hidden sm:inline-flex items-center px-3 py-2 text-xs font-medium rounded-lg bg-green-100 text-green-700 dark:bg-green-800/40 dark:text-green-200">
-      {{ productosFiltrados.length }} resultado(s)
-    </span>
-
-    <button routerLink="/crear-producto" type="button"
-      class="h-10 px-4 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 focus:outline-none
-                   focus:ring-4 focus:ring-green-300 dark:bg-green-500 dark:hover:bg-green-600 dark:focus:ring-green-700">
-      Crear Producto
-    </button>
-  </div>
-</form>
-
-@if (productosFiltrados.length === 0) {
-<div
-  class="max-w-3xl mx-auto my-10 text-center border border-dashed border-gray-300 dark:border-gray-700 rounded-2xl p-8">
-  <div
-    class="mx-auto w-12 h-12 mb-3 rounded-full bg-green-100 text-green-700 flex items-center justify-center dark:bg-green-800/40 dark:text-green-200">
-    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-      <path
-        d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79L20 21.5 21.5 20l-6-6ZM9.5 14A4.5 4.5 0 1 1 14 9.5 4.505 4.505 0 0 1 9.5 14Z" />
-    </svg>
-  </div>
-  <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Sin resultados</h3>
-  <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">No encontramos productos que coincidan con
-    “{{filtroNombre}}”.</p>
-  <div class="mt-4">
-    <button routerLink="/crear-producto" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
-      Crear un nuevo producto
-    </button>
-  </div>
+  </form>
 </div>
-}
 
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-6 p-4">
-  @for (producto of productosFiltrados; track producto.id) {
-  <div
-    class="group relative bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden transition">
-    <div class="thumb mb-4">
-      <img [src]="producto.imagen" [alt]="producto.nombre" loading="lazy" class="thumb__img">
-      <span class="absolute top-3 right-3 px-2 py-1 text-xs font-semibold rounded-lg bg-green-600 text-white shadow">
-        {{ producto.precio | currency:'USD':'symbol':'1.2-2' }}
-      </span>
-      <span class="absolute top-3 left-3 px-2 py-1 text-[11px] font-medium rounded-lg"
-        [class.bg-red-100]="!producto.stock || producto.stock <= 0"
-        [class.text-red-700]="!producto.stock || producto.stock <= 0"
-        [class.bg-yellow-100]="producto.stock > 0 && producto.stock <= 5"
-        [class.text-yellow-800]="producto.stock > 0 && producto.stock <= 5" [class.bg-green-100]="producto.stock > 5"
-        [class.text-green-800]="producto.stock > 5">
-        Stock: {{ producto.stock || 0 }}
-      </span>
-    </div>
 
-    <div class="p-4 pt-0">
-      <h3 class="text-base font-semibold text-gray-900 dark:text-gray-100 line-clamp-2">
-        {{ producto.nombre }}
-      </h3>
-      <p class="mt-1 text-sm text-gray-600 dark:text-gray-300 line-clamp-2">
-        {{ producto.descripcion }}
-      </p>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
+  @for (producto of productosFiltrados ; track producto.id) {
+  <div class="product-card">
+    
+    <!-- Imagen uniforme -->
+    <img [src]="producto.imagen" alt="Imagen del producto">
 
-      <div class="mt-4 grid grid-cols-2 gap-2">
-        <button [routerLink]="['/editarProducto', producto.id]" type="button"
-          class="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-3 rounded-lg transition">
-          Editar
-        </button>
-        <button (click)="eliminarProducto(producto.id)" type="button"
-          class="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-3 rounded-lg transition">
-          Eliminar
-        </button>
-      </div>
-
-      <button (click)="addCart(producto)" type="button" [disabled]="!producto.stock || producto.stock <= 0" class="mt-2 w-full bg-green-600 hover:bg-green-700 disabled:opacity-60 disabled:cursor-not-allowed
-                       text-white font-medium py-2 px-3 rounded-lg transition">
-        Agregar al carrito
+    <!-- Información del producto -->
+    <div class="p-4">
+      <h3>{{ producto.nombre }}</h3>
+      <div class="product-info"><strong>Código:</strong> {{ producto.id }}</div>
+      <div class="product-info"><strong>Precio:</strong> <span class="text-green-600 font-bold">${{ producto.precio }}</span></div>
+      <div class="product-info"><strong>Stock:</strong> {{ producto.stock }}</div>
+      
+      <!-- Botón -->
+      <button type="button" class="product-button">
+        Comprar
       </button>
     </div>
   </div>
   }
 </div>
+

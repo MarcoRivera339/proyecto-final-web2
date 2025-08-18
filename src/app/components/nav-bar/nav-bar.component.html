@@ -27,6 +27,18 @@
       <li class="menu__item">
         <a routerLink="/contacto" routerLinkActive="is-active" class="menu__link" (click)="closeMenu()">Contacto</a>
       </li>
+      <li class="menu__item">
+        <a routerLink="/usuarios" routerLinkActive="is-active" class="menu__link" (click)="closeMenu()">Usuarios</a>
+      </li>
+      <li class="menu__item">
+        <a routerLink="/productos" routerLinkActive="is-active" class="menu__link" (click)="closeMenu()">Productos</a>
+      </li>
+      <li>
+        @if(!auth.sesionIniciada()){
+        <a routerLink="factura"
+          class="block py-2 px-4 text-blue-700 rounded hover:bg-blue-100 md:hover:bg-transparent md:hover:text-blue-600 md:p-0">Factura</a>
+        }
+      </li>
       <li>
         @if(!auth.sesionIniciada()){
         <a routerLink="registro"

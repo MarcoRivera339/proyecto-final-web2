@@ -1,6 +1,6 @@
-<div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 transition hover:shadow-lg border border-gray-200 dark:border-gray-700">
-  <img [src]="producto?.imagen" [alt]="producto?.nombre"
-       class="w-full h-48 object-cover rounded-md mb-4">
+<div
+  class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 transition hover:shadow-lg border border-gray-200 dark:border-gray-700">
+  <img [src]="producto?.imagen" [alt]="producto?.nombre" class="w-full h-48 object-cover rounded-md mb-4">
 
   <div class="flex items-start justify-between gap-3 mb-2">
     <h3 class="text-base font-semibold text-gray-800 dark:text-gray-100 line-clamp-2">{{ producto?.nombre }}</h3>
@@ -17,19 +17,18 @@
 
   <div class="flex gap-2">
     <button [routerLink]="['/editar-producto', producto?.id]" type="button"
-            class="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-4 rounded-lg transition">
+      class="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-4 rounded-lg transition">
       Editar
     </button>
 
     <button (click)="del.emit()" type="button"
-            class="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition">
+      class="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition">
       Eliminar
     </button>
   </div>
 
-  <button (click)="add.emit()" type="button"
-          [disabled]="!producto?.stock || producto?.stock <= 0"
-          class="w-full mt-2 bg-green-600 hover:bg-green-700 disabled:opacity-60 text-white font-medium py-2 px-4 rounded-lg transition">
+  <button (click)="add.emit()" type="button" [disabled]="!producto?.stock || producto?.stock <= 0"
+    class="w-full mt-2 bg-green-600 hover:bg-green-700 disabled:opacity-60 text-white font-medium py-2 px-4 rounded-lg transition">
     Agregar al carrito
   </button>
 </div>

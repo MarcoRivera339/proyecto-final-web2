@@ -2,29 +2,31 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../../services/cart.service';
 import { FacturasService } from '../../services/factura.service';
+import { FormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UsuariosService } from '../../services/usuarios.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-factura-previa',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './factura-previa.component.html',
   styleUrls: ['./factura-previa.component.css']
 })
 export class FacturaPreviaComponent {
-  tasaIVA = 0.15;
 
-  constructor(public cart: CartService, private facturas: FacturasService) {}
+  constructor(private http: HttpClient, private servicioUsuario: UsuariosService, private servicioFactura: FacturasService, private router: Router, private ruta: ActivatedRoute) { }
 
-  async generarFactura() {
-    const items = this.cart.getItems();
-    if (!items.length) return;
+  usuarios: any[] = [];
 
-    const subtotal = this.cart.getSubtotal();
-    const iva = this.cart.getIVA(this.tasaIVA);
-    const total = this.cart.getTotal(this.tasaIVA);
-
-    const factura = await this.facturas.crear(items, subtotal, iva, total);
-    this.cart.clear();
-    alert('Factura generada: ' + factura.id);
+  ngOnInit() {
+    this.servicioUsuario.getUsuarios().subscribe(data => {
+      this.usuarios = Object.keys(data).map(key => ({
+        id: key, ...data[key]
+      }));
+    });
   }
+
 }

@@ -8,6 +8,8 @@ import { FormProductosComponent } from './components/form-productos/form-product
 import { EditarProductoComponent } from './components/editar-producto/editar-producto.component';
 import { LoginComponent } from './pages/login/login.component';
 import { FormUserComponent } from './components/form-user/form-user.component';
+import { FacturaPreviaComponent } from './components/factura-previa/factura-previa.component';
+import { ListaUsuariosComponent } from './components/lista-usuarios/lista-usuarios.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -16,6 +18,8 @@ export const routes: Routes = [
   { path: 'contacto', component: ContactoComponent },
   { path: 'registro', component: RegistroComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'usuarios', component: ListaUsuariosComponent },
+  { path: 'factura', component: FacturaPreviaComponent },
   { path: 'crear-producto', component: FormProductosComponent },
   { path: 'crear-usuario', component: FormUserComponent},
   { path: 'editarProducto/:id', component: EditarProductoComponent },
