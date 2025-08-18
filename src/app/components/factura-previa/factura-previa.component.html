@@ -6,17 +6,24 @@
       <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Verduleria R y T</h1>
       <p class="text-sm text-gray-600 dark:text-gray-300">RUC: 173945737001</p>
       <p class="text-sm text-gray-600 dark:text-gray-300">Dirección: Av. 5 de Junio Quito, Ecuador</p>
-      <p class="text-sm text-gray-600 dark:text-gray-300">Teléfono: 099 427 1141 · Email: verduleriaryt&#64;gmail.com</p>
+      <p class="text-sm text-gray-600 dark:text-gray-300">Teléfono: 099 427 1141 · Email: verduleriaryt&#64;gmail.com
+      </p>
     </div>
     <div class="text-right">
-      <h2 class="text-2xl font-bold text-gray-800 dark:text-white">FACTURA #  </h2>
+      <h2 class="text-2xl font-bold text-gray-800 dark:text-white">
+
+        FACTURA # {{ numeroFactura }}
+      </h2>
     </div>
   </div>
 
   <!-- Cliente -->
   <div class="grid md:grid-cols-2 gap-4 mb-4">
     <div class="border p-4 rounded-xl">
-      <h3 class="font-semibold mb-2 text-gray-800 dark:text-white">Factura para:  </h3>
+      <h3 class="font-semibold mb-2 text-gray-800 dark:text-white">
+
+        Factura para: {{ nombreUsuario || emailUsuario }}
+      </h3>
     </div>
   </div>
 
@@ -34,7 +41,26 @@
       </thead>
       <tbody>
 
+        @for (it of items; let i = $index; track it.id) {
+        <tr class="border-t">
+          <td class="px-4 py-2">{{ i + 1 }}</td>
+          <td class="px-4 py-2">{{ it.nombre }}</td>
+          <td class="px-4 py-2 text-right">{{ it.cantidad }}</td>
+          <td class="px-4 py-2 text-right">{{ it.precio | currency:'USD':'symbol':'1.2-2' }}</td>
+          <td class="px-4 py-2 text-right">{{ (it.precio * it.cantidad) | currency:'USD':'symbol':'1.2-2' }}</td>
+        </tr>
 
+        }
+
+        @if(items.length === 0){
+        <tr>
+          <td colspan="5" class="px-4 py-6 text-center text-gray-500 dark:text-gray-400">
+
+            No hay productos en la factura.
+          </td>
+        </tr>
+
+        }
       </tbody>
     </table>
   </div>
@@ -44,18 +70,30 @@
     <div class="w-full md:w-80 border p-4 rounded-xl">
       <div class="flex justify-between py-1">
         <span>Subtotal</span>
+        <span>{{ subtotal | currency:'USD':'symbol':'1.2-2' }}</span>
       </div>
       <div class="flex justify-between py-1">
         <span>IVA 15%</span>
+        <span>{{ iva | currency:'USD':'symbol':'1.2-2' }}</span>
       </div>
       <div class="flex justify-between py-2 border-t mt-2 font-semibold text-lg">
         <span>Total</span>
+        <span>{{ total | currency:'USD':'symbol':'1.2-2' }}</span>
       </div>
+
+      <!-- Botón Guardar Factura -->
+      <button type="button" (click)="guardarFactura()" [disabled]="items.length === 0 || guardando" class="mt-4 w-full px-4 py-2 rounded-xl border border-gray-300 dark:border-gray-600
+
+               bg-emerald-600 text-white hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed">
+
+        {{ guardando ? 'Guardando…' : 'Guardar factura' }}
+      </button>
     </div>
   </div>
 
   <!-- Pie -->
   <div class="mt-6 text-center text-xs text-gray-500 dark:text-gray-400">
+
     Documento generado automáticamente por Verdulería R y T
   </div>
 </div>

@@ -1,54 +1,25 @@
-<div class="max-w-4xl mx-auto my-8 p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-md">
-  <!-- Título -->
-  <h1 class="text-3xl font-bold text-gray-800 dark:text-white text-center mb-6">
-    Lista de Productos
-  </h1>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
 
-  <!-- Formulario de búsqueda -->
-  <form class="flex items-center gap-4">
-    <div class="relative flex-1">
-      <!-- Icono de búsqueda -->
-      <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-        <svg class="w-5 h-5 text-gray-400 dark:text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-          fill="none" viewBox="0 0 20 20">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-        </svg>
-      </div>
+  @for (producto of productosFiltrados ; track producto.id) {
+<div class="product-card">
+<!-- Imagen uniforme -->
+<img [src]="producto.imagen" alt="Imagen del producto">
+ 
+    <!-- Información del producto -->
+<div class="p-4">
+<h3>{{ producto.nombre }}</h3>
+<div class="product-info"><strong>Código:</strong> {{ producto.id }}</div>
+<div class="product-info"><strong>Precio:</strong> <span class="text-green-600 font-bold">${{ producto.precio }}</span></div>
+<div class="product-info"><strong>Stock:</strong> {{ producto.stock }}</div>
+<!-- Botón -->
+<button type="button" class="product-button" (click)="comprar(producto)">
 
-      <!-- Input -->
-      <input [(ngModel)]="filtroNombre" name="filtroNombre" (ngModelChange)="filtrarProductos()" type="search"
-        id="filtroNombre" 
-        class="block w-full p-3 ps-10 text-sm text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 
-        rounded-lg bg-gray-50 dark:bg-gray-700 placeholder-gray-400 dark:placeholder-gray-400 focus:ring-blue-500 
-        focus:border-blue-500 dark:focus:ring-blue-500 dark:focus:border-blue-500 shadow-sm transition-all duration-200"
-        placeholder="Buscar producto por nombre"
-        required />
-    </div>
-  </form>
+        Comprar
+</button>
+</div>
 </div>
 
-
-<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
-  @for (producto of productosFiltrados ; track producto.id) {
-  <div class="product-card">
-    
-    <!-- Imagen uniforme -->
-    <img [src]="producto.imagen" alt="Imagen del producto">
-
-    <!-- Información del producto -->
-    <div class="p-4">
-      <h3>{{ producto.nombre }}</h3>
-      <div class="product-info"><strong>Código:</strong> {{ producto.id }}</div>
-      <div class="product-info"><strong>Precio:</strong> <span class="text-green-600 font-bold">${{ producto.precio }}</span></div>
-      <div class="product-info"><strong>Stock:</strong> {{ producto.stock }}</div>
-      
-      <!-- Botón -->
-      <button type="button" class="product-button">
-        Comprar
-      </button>
-    </div>
-  </div>
   }
 </div>
 
+ 
